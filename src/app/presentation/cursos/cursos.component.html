@@ -1,0 +1,47 @@
+<app-loading *ngIf="cargando"></app-loading>
+<div class="pagina">
+    <header class="encabezado">
+        <h1 class="titulo-principal">Plataforma de Cursos - Curseando</h1>
+        <p class="subtitulo">Explora nuestros cursos y desarrolla tus habilidades al siguiente nivel</p>
+    </header>
+
+    <section class="filtros">
+        <button *ngFor="let nivel of niveles" class="nivel-btn" [ngClass]="{
+      active: nivelSeleccionado === nivel.valor,
+      principiante: nivel.valor == 1,
+      intermedio: nivel.valor == 2,
+      avanzado: nivel.valor == 3
+    }" (click)="filtrarPorNivel(nivel.valor)">
+            {{ nivel.etiqueta }}
+        </button>
+
+    </section>
+
+    <section class="contenedor-cursos">
+
+        <p-card *ngFor="let curso of cursos()" class="tarjeta-curso shadow-sm rounded-xl">
+
+            <ng-template pTemplate="header">
+                <div class="cabecera-curso">
+                    <h3 class="titulo-curso">{{ curso.titulo }}</h3>
+                    <span class="instructor">{{ curso.instructor }}</span>
+                </div>
+            </ng-template>
+
+            <div class="contenido-curso">
+                <p><strong>Duración:</strong> {{ curso.duracion }} horas</p>
+                <p><strong>Nivel:</strong>
+                    <p-tag [value]="curso.nivel" [severity]="getColorNivel(curso.nivel)"></p-tag>
+                </p>
+                <p><strong>Cupos:</strong> {{ curso.disponibles }}/{{ curso.capacidad }}</p>
+
+            </div>
+
+            <ng-template pTemplate="footer">
+                <button pButton label="Ver detalles" (click)="verDetalle(curso.id)" class="boton-detalle">
+                </button>
+            </ng-template>
+
+        </p-card>
+    </section>
+</div>

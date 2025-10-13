@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+@use './tailwind.css';
+//@use './assets/layout/layout.scss';
+@use 'primeicons/primeicons.css';
+//@use './assets/demo/demo.scss';
+
+.pagina{
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fb;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+
+    .encabezado {
+        text-align: center;
+        padding: 3rem 1rem 2rem 1rem;
+        background: linear-gradient(135deg, #0056d2, #0041a3);
+        color: white;
+
+        .titulo-principal {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitulo {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+    }
+}
+
+.p-tab-active { 
+    border-color: #0056d2 !important;
+    color:#0056d2 !important;
+}
+

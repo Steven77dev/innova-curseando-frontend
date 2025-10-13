@@ -1,0 +1,69 @@
+.cuerpo-pagina {
+    font-family: 'Inter', sans-serif;
+    background-color: #eef3ff;
+
+    .detalle-pagina {
+        max-width: 1024px;
+        min-height: 100vh; 
+        margin: 0 auto;
+
+        .encabezado-detalle {
+            text-align: left; 
+
+            .titulo-detalle {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #363535;
+            }
+
+            .descripcion {
+                color: #363535;
+                font-size: 1rem;
+
+            }
+        }
+
+        .acciones {
+            small {
+                display: block;
+                padding:10px 0px
+            }
+            button {
+                padding: 10px 20px;
+            }
+
+            .btn-inscribirse {
+                background-color: #0056d2;
+                border: none;
+            }
+
+            .btn-inscribirse:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+            }
+
+
+            .mensaje {
+                text-align: center;
+                margin-top: 1rem;
+                font-weight: 500;
+                color: #0041a3;
+            }
+        }
+
+        .tarjeta-detalle {
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+
+            .info p {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 0.8rem;
+            }
+
+
+        }
+    }
+}
+

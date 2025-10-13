@@ -1,0 +1,103 @@
+.pagina {
+    
+
+    .filtros {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+
+        button {
+            background: #eaf0ff;
+            border: none;
+            color: #0056d2;
+            border-radius: 25px;
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: #dce7ff;
+        }
+ 
+
+        button.active {
+            color: #0056d2;
+            border: 1px solid #0056d2;
+            transform: scale(1.05);
+        }
+    }
+}
+
+.contenedor-cursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem;
+
+    .tarjeta-curso { 
+        transition: transform 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        .cabecera-curso {
+            padding: 10px 20px;
+
+            .titulo-curso {
+                font-size: 1.25rem;
+                margin-bottom: 0.3rem;
+                color: #1f1f1f;
+                font-weight: 600;
+                min-height: 3.7rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .instructor {
+                font-size: 0.9rem;
+                color: #6c757d;
+            }
+        }
+
+        .contenido-curso {
+            margin: 0.4rem 0;
+            font-size: 0.95rem;
+            color: #333;
+        }
+    }
+
+    .tarjeta-curso:hover {
+        transform: translateY(-4px);
+    }
+
+    .boton-detalle {
+        width: 100%;
+        border-radius: 8px;
+        background-color: #0056d2;
+        border: none;
+        color: white;
+        font-weight: 500;
+    }
+
+    .boton-detalle:hover {
+        background-color: #0041a3;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .titulo-principal {
+        font-size: 1.8rem;
+    }
+
+    .subtitulo {
+        font-size: 1rem;
+    }
+
+    .contenedor-cursos {
+        padding: 0 1rem;
+    }
+}

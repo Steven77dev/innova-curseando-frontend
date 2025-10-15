@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
@@ -9,17 +9,21 @@ import { catchError, EMPTY, finalize } from 'rxjs';
 import { ApiResponse } from '../../core/models/api-response';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { ButtonModule } from 'primeng/button';
-import { TabsModule } from 'primeng/tabs'; 
+import { TabsModule } from 'primeng/tabs';  
+import { InscripcionComponent } from '../inscripcion/inscripcion.component';
+import { Inscripcion } from '../../core/models/inscripcion.model';
 @Component({
   selector: 'app-curso-detalle',
   standalone: true,
-  imports: [CommonModule, TagModule, CardModule, LoadingComponent, ButtonModule, TabsModule,RouterModule ],
+  imports: [CommonModule, TagModule, CardModule, InscripcionComponent, LoadingComponent, ButtonModule, TabsModule, RouterModule],
   templateUrl: './curso-detalle.component.html',
   styleUrl: './curso-detalle.component.scss'
 })
 export class CursoDetalleComponent {
   private cursoService = inject(CursoService);
-  curso?: CursoDetalle;
+
+  @ViewChild('inscripcionComponent') inscripcionComponent!: InscripcionComponent;
+  curso: CursoDetalle = {} as CursoDetalle;
   mensaje: string = '';
   cargando: boolean = true;
   tabIndice: number = 0
@@ -31,6 +35,10 @@ export class CursoDetalleComponent {
   ngOnInit(): void {
     this.tabIndice = 0
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.obtenerDetalleCurso(id);
+  }
+
+  obtenerDetalleCurso(id: number): void {
     this.cursoService.obtenerCurso(id).pipe(
       catchError((errorResponse: any) => {
         //this.mensajeService.errorServicioConsulta(errorResponse);
@@ -45,24 +53,17 @@ export class CursoDetalleComponent {
   }
 
   inscribirse(): void {
-    if (!this.curso) return;
-    if (this.curso.inscritos >= this.curso.capacidad) {
-      this.mensaje = 'Este curso ya está lleno. No es posible inscribirse.';
-      return;
-    }
-
-    /*this.cursoService.inscribir(this.curso.id).subscribe(resp => {
-      if (resp.codigo === '200') {
-        this.mensaje = 'Inscripción realizada con éxito';
-        this.curso!.inscritos++;
-      } else {
-        this.mensaje = resp.mensaje || 'Error al inscribirse.';
-      }
-    });*/
+    this.inscripcionComponent.mostrarDialogo();
   }
 
   volver(): void {
     this.router.navigate(['/']);
+  }
+
+  onInscrito(inscripcion: Inscripcion): void {
+   
+      this.obtenerDetalleCurso(this.curso.id);
+    
   }
 
   getColorNivel(nivel: string): string {

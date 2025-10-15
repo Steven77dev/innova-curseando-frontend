@@ -1,1 +1,37 @@
-<p>inscripcion works!</p>
+<p-dialog header="Inscribirse al curso" [(visible)]="mostrarInscripcion" [modal]="true" [style]="{width: '400px'}"
+    [draggable]="false" [resizable]="false" (onHide)="cerrar()">
+
+    <div *ngIf="curso" class="mb-4">
+        <h3 class="titulo-curso">{{ curso.titulo }}</h3>
+        <p><b>Nivel:</b> {{ curso.nivel }}</p>
+        <p><b>Instructor:</b> {{ curso.instructor }}</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="inscribirse()" class="space-y-4 mb-4">
+        <div>
+            <input pInputText [maxLength]="100" placeholder="Nombre completo" formControlName="nombreCompleto"
+                [class]="formHelper?.esClaseInvalido('nombreCompleto')" class="w-full" />
+            <small *ngIf="formHelper?.esCampoInvalido('nombreCompleto')" class="p-error">
+                {{ formHelper?.obtenerMensajeError(form.get('nombreCompleto'), 'nombre completo') }}
+            </small>
+        </div>
+        <div>
+            <input pInputText type="email" [maxLength]="100" placeholder="Correo electrónico" formControlName="email"
+                [class]="formHelper?.esClaseInvalido('email')" class="w-full" />
+            <small *ngIf="formHelper?.esCampoInvalido('email')" class="p-error">
+                {{ formHelper?.obtenerMensajeError(form.get('email'), 'correo electrónico') }}
+            </small>
+        </div>
+
+        <div class="flex justify-end flex-wrap gap-3 mb-6">
+            <button pButton label="Cancelar" type="button" [raised]="true" (click)="cerrar()" severity="secondary"
+                class="min-w-[130px]"></button>
+            <button pButton label="Guardar" type="submit" icon="pi pi-save" [raised]="true" severity="contrast"
+                class="min-w-[130px]"></button>
+
+        </div>
+    </form>
+ 
+    <p-message *ngIf="mensaje" [severity]="error ? 'error' : 'success'">{{ mensaje }}</p-message>
+</p-dialog>
+<app-loading *ngIf="cargando"></app-loading>

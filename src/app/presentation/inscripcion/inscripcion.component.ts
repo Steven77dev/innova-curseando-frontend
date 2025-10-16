@@ -7,15 +7,14 @@ import { InscripcionService } from '../../core/services/inscripcion.service';
 import { Curso, CursoDetalle } from '../../core/models/curso.model';
 import { catchError, EMPTY, finalize } from 'rxjs';
 import { ApiResponse } from '../../core/models/api-response';
-import { Inscripcion } from '../../core/models/inscripcion.model';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { Inscripcion } from '../../core/models/inscripcion.model'; 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 @Component({
   selector: 'app-inscripcion',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoadingComponent, MessageModule, InputTextModule, DialogModule, ButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MessageModule, InputTextModule, DialogModule, ButtonModule],
   templateUrl: './inscripcion.component.html',
   styleUrl: './inscripcion.component.scss'
 })
@@ -23,13 +22,13 @@ export class InscripcionComponent {
 
   private inscripcionService = inject(InscripcionService);
 
-  @Output() inscrito = new EventEmitter<Inscripcion>();
+  @Output() inscrito = new EventEmitter<number>();
   @Input() curso!: CursoDetalle | null;
   form: FormGroup | any;
   formHelper !: any;
   mensaje: string = '';
   error: boolean = false;
-  cargando: boolean = false;
+  bloqueado: boolean = false;
   mostrarInscripcion: boolean = false;
   constructor(private fb: FormBuilder) {
     this.setearForm();
@@ -66,20 +65,25 @@ export class InscripcionComponent {
       this.mensaje = 'Este curso ya está lleno. No es posible inscribirse.';
       return;
     }
+    this.bloqueado = true
     this.inscripcionService.inscribir(nombreCompleto, email, this.curso.id).pipe(
       catchError((errorResponse: any) => {
         console.log(errorResponse);
         this.mensaje = errorResponse.error.mensaje || 'Ocurrió un error al procesar la inscripción. Por favor, inténtelo de nuevo más tarde.';
         this.error = true
+        this.bloqueado = false;
         return EMPTY;
-      }), finalize(() => { this.cargando = false })
+      }),
     ).subscribe((respuesta: ApiResponse<Inscripcion>) => {
       console.log(respuesta);
       const { data, mensaje, codigo } = respuesta;
       if (codigo == 200) {
         this.error = false
-        this.inscrito.emit(data);
-        setTimeout(() => this.cerrar(), 1200);
+        this.inscrito.emit(codigo);
+        setTimeout(() => {
+          this.bloqueado = false;
+          this.cerrar()
+        }, 1200);
       } else {
         this.error = true;
       }

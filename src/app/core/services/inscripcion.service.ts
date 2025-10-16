@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 import { ApiResponse } from '../models/api-response'; 
 import { Inscripcion } from '../models/inscripcion.model';
+import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class InscripcionService {
 
-  private readonly baseUrl = 'http://localhost:8080/api/inscripcion';
+    private readonly baseUrl = environment.apiUrl + "/inscripcion";
 
   constructor(private http: HttpClient) {}
 

@@ -60,8 +60,8 @@ export class CursoDetalleComponent {
     this.router.navigate(['/']);
   }
 
-  onInscrito(inscripcion: Inscripcion): void {
-   
+  onInscrito(codigo: number): void {
+    if(codigo===200)
       this.obtenerDetalleCurso(this.curso.id);
     
   }

@@ -26,12 +26,11 @@
         <div class="flex justify-end flex-wrap gap-3 mb-6">
             <button pButton label="Cancelar" type="button" [raised]="true" (click)="cerrar()" severity="secondary"
                 class="min-w-[130px]"></button>
-            <button pButton label="Guardar" type="submit" icon="pi pi-save" [raised]="true" severity="contrast"
+            <button pButton label="Guardar" type="submit" [disabled]="bloqueado" icon="pi pi-save" [raised]="true" severity="contrast"
                 class="min-w-[130px]"></button>
 
         </div>
     </form>
  
     <p-message *ngIf="mensaje" [severity]="error ? 'error' : 'success'">{{ mensaje }}</p-message>
-</p-dialog>
-<app-loading *ngIf="cargando"></app-loading>
+</p-dialog> 

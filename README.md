@@ -35,6 +35,24 @@ npm start
 ```
 App en: `http://localhost:4200`
 
+## Capturas de pantallas
+
+1. Listado de cursos
+![alt text](image-1.png)
+
+2. Filtrado de cursos por nivel
+![alt text](image-2.png)
+
+3. Detalle del curso (sin cupos)
+![alt text](image-3.png)
+
+4. Detalle del curso (con cupos disponibles)
+![alt text](image-4.png)
+
+5. Inscripción con éxito
+![alt text](image-5.png)
+
+
 ## 👨‍💻 Autor
 **Steven Llaja**  
 Desarrollador Full Stack
